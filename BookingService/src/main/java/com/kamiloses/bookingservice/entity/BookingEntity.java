@@ -26,4 +26,7 @@ public class BookingEntity {
     private BookingStatus status;
 
     private Long userId;
+    private Long carId;
 }
+//chce znależć encje którego userId wynosi np 75 i jak encja tyle wynosi ile zaznaczylem
+//to wtedy sprawdza wszystkie carId którego które do tego należą

@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @FeignClient("CARINVENTORYSERVICE")
-public interface OpenFeign {
+public interface FeignCarService {
 
 
     @GetMapping("/cars/available")
@@ -15,6 +15,9 @@ public interface OpenFeign {
 
     @PutMapping("/cars/{id}/status")
     String modifyCarStatus(@PathVariable Long id);
+
+
+
 
 
 }

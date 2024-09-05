@@ -4,6 +4,8 @@ import com.kamiloses.bookingservice.dto.BookingDto;
 import com.kamiloses.bookingservice.entity.BookingEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class Mapper {
 
@@ -17,6 +19,14 @@ public class Mapper {
     return bookingEntity;}
 
 
+    public List<BookingDto> BookingEntityToDto(List<BookingEntity> bookingEntities) {
+        return bookingEntities.stream()
+                .map(bookingEntity -> new BookingDto(
+                        bookingEntity.getId(),
+                        bookingEntity.getStartDate(),
+                        bookingEntity.getEndDate(),
+                        bookingEntity.getStatus())).toList();
+    }
 
 
 
