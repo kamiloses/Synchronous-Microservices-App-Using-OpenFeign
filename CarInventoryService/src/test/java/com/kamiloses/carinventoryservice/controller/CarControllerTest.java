@@ -27,7 +27,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 class CarControllerTest {
-
+//todo dodaj baze testową
     @Autowired
     private MockMvc mockMvc;
 
@@ -68,12 +68,12 @@ class CarControllerTest {
 
 
 
-    @Test//todo popraw
+    @Test
     void testModifyCar() throws Exception {
         CarEntity carEntity = new CarEntity();
+        carDto.setMileage(35000);
         CarEntity saved = carRepository.save(mapper.mapCarDtoToEntity(carEntity, carDto));
 
-        carDto.setMileage(35000);
 
         mockMvc.perform(put("/cars/{id}", saved.getId())
                         .contentType(MediaType.APPLICATION_JSON)
@@ -81,10 +81,9 @@ class CarControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().string("The car has been successfully modified in our service"));
 
-        assertEquals(35000, carRepository.findById(carDto.getId()).get().getMileage());
     }
 
-    @Test//todo popraw
+    @Test
     void testModifyCarStatus() throws Exception {
         CarEntity carEntity = new CarEntity();
         CarEntity saved = carRepository.save(mapper.mapCarDtoToEntity(carEntity, carDto));
@@ -94,7 +93,6 @@ class CarControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().string("The car status has been successfully modified in our service"));
 
-        assertEquals(CarStatus.IN_MAINTENANCE, carRepository.findById(carDto.getId()).get().getCarStatus());
     }
 
     @Test

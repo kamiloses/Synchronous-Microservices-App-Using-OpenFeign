@@ -12,7 +12,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/cars")
 public class CarController {
-
+//response entity is only for Employees
     private final CarService carService;
 
     public CarController(CarService carService) {
