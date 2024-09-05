@@ -1,6 +1,9 @@
 package com.kamiloses.bookingservice.service;
 
+import com.kamiloses.bookingservice.controller.OpenFeign;
+import com.kamiloses.bookingservice.dto.BookingDto;
 import com.kamiloses.bookingservice.entity.BookingEntity;
+import com.kamiloses.bookingservice.entity.BookingStatus;
 import com.kamiloses.bookingservice.repository.BookingRepository;
 import org.springframework.stereotype.Service;
 
@@ -8,16 +11,23 @@ import org.springframework.stereotype.Service;
 public class BookingService {
 
 private final BookingRepository bookingRepository;
+private final OpenFeign openFeign; //todo zamień open feign nazwe na coś związanego z car
 
-    public BookingService(BookingRepository bookingRepository) {
+    public BookingService(BookingRepository bookingRepository, OpenFeign openFeign) {
         this.bookingRepository = bookingRepository;
+        this.openFeign = openFeign;
     }
 
-    public void makeBooking(){
-bookingRepository.save(new BookingEntity());
+    public void makeABooking(BookingDto bookingDto,Long carId){
+        BookingEntity bookingEntity = new BookingEntity();
+        bookingEntity.setStartDate(bookingDto.getStartDate());
+        bookingEntity.setEndDate(bookingDto.getEndDate());
+        bookingEntity.setStatus(BookingStatus.PENDING);
+        bookingRepository.save(bookingEntity);
 
-};
-public void cancelBooking(){
+        openFeign.modifyCarStatus(carId);
+    };
+public void cancelABooking(){
 
 }
 

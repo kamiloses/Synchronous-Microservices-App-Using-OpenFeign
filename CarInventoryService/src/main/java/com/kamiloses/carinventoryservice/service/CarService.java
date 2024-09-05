@@ -5,6 +5,7 @@ import com.kamiloses.carinventoryservice.entity.CarEntity;
 import com.kamiloses.carinventoryservice.entity.CarStatus;
 import com.kamiloses.carinventoryservice.exception.VehicleNotFoundException;
 import com.kamiloses.carinventoryservice.repository.CarRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -42,10 +43,22 @@ public class CarService {
 
     }
     //patch
-     public void modifyCarStatus(Long id, CarStatus status){
+     public void modifyCarStatus(Long id){
          CarEntity carEntity = carRepository.findById(id).orElseThrow(() -> new VehicleNotFoundException("The car does not exist in our service"));
-         carEntity.setCarStatus(status);
+         CarStatus currentStatus = carEntity.getCarStatus();
+
+
+         if (currentStatus.equals(CarStatus.IN_MAINTENANCE)) {
+             carEntity.setCarStatus(CarStatus.AVAILABLE);
+         } else if (currentStatus.equals(CarStatus.RENTED)) {
+             carEntity.setCarStatus(CarStatus.IN_MAINTENANCE);
+         } else if (currentStatus.equals(CarStatus.AVAILABLE)) {
+             carEntity.setCarStatus(CarStatus.RENTED);
+         }
+
+
          carRepository.save(carEntity);
+
 
      }
      public List<CarDto> getAllCars(){

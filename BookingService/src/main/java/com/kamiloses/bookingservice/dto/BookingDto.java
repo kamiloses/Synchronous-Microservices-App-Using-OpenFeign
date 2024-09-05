@@ -19,5 +19,4 @@ public class BookingDto {
 
     private BookingStatus status;
 
-    private Long carId;
 }

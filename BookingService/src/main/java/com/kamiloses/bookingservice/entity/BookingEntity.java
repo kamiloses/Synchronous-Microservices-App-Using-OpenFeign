@@ -25,5 +25,5 @@ public class BookingEntity {
     @Enumerated(EnumType.STRING)
     private BookingStatus status;
 
-    private Long carId;
+    private Long userId;
 }

@@ -37,9 +37,9 @@ public class CarController {
         return new ResponseEntity<>("The car has been successfully modified in our service", HttpStatus.OK);
     }
 
-    @PatchMapping("/{id}/status")
-    public ResponseEntity<String> modifyCarStatus(@PathVariable Long id, @RequestParam CarStatus carStatus) {
-        carService.modifyCarStatus(id, carStatus);
+    @PutMapping("/{id}/status")// i have used put because openfeign does not support patch
+    public ResponseEntity<String> modifyCarStatus(@PathVariable Long id) {
+        carService.modifyCarStatus(id);
         return new ResponseEntity<>("The car status has been successfully modified in our service", HttpStatus.OK);
     }
 

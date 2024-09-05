@@ -22,7 +22,7 @@ public class CarEntity {
     private String model;
 
     private Year year;
-
+    @Enumerated(EnumType.STRING)
     private CarStatus carStatus;
 
     private Double dailyRate;
