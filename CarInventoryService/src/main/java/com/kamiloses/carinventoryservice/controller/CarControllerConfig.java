@@ -12,8 +12,8 @@ import java.util.List;
 public class CarControllerConfig {
 
 
-@GetMapping("/config")
-public List<CarDto>
-
+//@GetMapping("/config")
+//public List<CarDto>
+//
 
 }

@@ -16,9 +16,10 @@ public class BookingController {
 
     private final BookingRepository bookingRepository; //todo usuń repository potem
 
-     private final Mapper mapper;
+    private final Mapper mapper;
     private final FeignCarService feignCarService;
     private final FeignUserService feignUserService;
+
     public BookingController(BookingService bookingService, BookingRepository bookingRepository, Mapper mapper, FeignCarService feignCarService, FeignUserService feignUserService) {
         this.bookingService = bookingService;
         this.bookingRepository = bookingRepository;
@@ -28,36 +29,37 @@ public class BookingController {
     }
 
     @GetMapping("/cars") //todo zmień na responseEntity
-    public List<CarDto> getAvailableCars(){
+    public List<CarDto> getAvailableCars() {
         return feignCarService.getAvailableCars();
 
     }
 
 
-
     @PostMapping("/{id}")
-    public String makeABooking(@RequestBody BookingDto bookingDto,@PathVariable(name = "id") Long carId){
+    public String makeABooking(@RequestBody BookingDto bookingDto, @PathVariable(name = "id") Long carId) {
         Long myAccountId = feignUserService.getMyAccountId();
-        bookingService.makeABooking(bookingDto,myAccountId,carId);
+        bookingService.makeABooking(bookingDto, myAccountId, carId);
 
 
-return "success";
-}
-@DeleteMapping
-public String cancelABooking(){
-
-
-
-return null;}
-
-    @GetMapping
-    public List<BookingDto>getMyBookings(){
-        Long myAccountId = feignUserService.getMyAccountId();
-    return  mapper.BookingEntityToDto(bookingRepository.findByUserId(myAccountId));
-              //zwraca to wszystkie moje zamówienia 
-
+        return "success";
     }
 
+    @DeleteMapping("/{id}")
+    public String cancelABooking(@PathVariable(name = "id") Long bookingId) {
+        Long myAccountId = feignUserService.getMyAccountId();
+        bookingService.cancelABooking(bookingId, myAccountId);
+
+
+        return null;
+    }
+
+    @GetMapping
+    public List<BookingDto> getMyBookings() {
+        Long myAccountId = feignUserService.getMyAccountId();
+        return mapper.BookingEntityToDto(bookingRepository.findByUserId(myAccountId));
+        //zwraca to wszystkie moje zamówienia
+
+    }
 
 
 

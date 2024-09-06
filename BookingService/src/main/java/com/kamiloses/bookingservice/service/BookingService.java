@@ -31,8 +31,9 @@ private final FeignCarService feignCarService; //todo zamień open feign nazwe n
         feignCarService.modifyCarStatus(carId);
     };
 public void cancelABooking(Long id,Long userId){
-    BookingEntity bookingEntity = bookingRepository.findById(id).orElseThrow(() -> new BookingNotFoundException());
-    if (!bookingEntity.getUserId().equals(userId)){throw new BookingNotRelatedException() ;}
+    BookingEntity bookingEntity = bookingRepository.findById(id)
+            .filter(booking -> booking.getUserId().equals(userId))
+            .orElseThrow(() -> new BookingNotFoundException("This booking is not existing or it's not related with you"));
      bookingRepository.delete(bookingEntity);
 }
 
