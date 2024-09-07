@@ -1,4 +1,4 @@
-package com.kamiloses.bookingservice.controller;
+package com.kamiloses.bookingservice.feign;
 
 import com.kamiloses.bookingservice.dto.CarDto;
 import org.springframework.cloud.openfeign.FeignClient;

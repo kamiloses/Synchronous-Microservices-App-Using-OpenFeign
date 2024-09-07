@@ -1,5 +1,7 @@
 package com.kamiloses.carinventoryservice.entity;
 
+import com.kamiloses.carinventoryservice.enums.CarStatus;
+import com.kamiloses.carinventoryservice.enums.FuelType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

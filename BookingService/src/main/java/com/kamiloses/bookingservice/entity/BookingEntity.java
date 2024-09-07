@@ -1,5 +1,6 @@
 package com.kamiloses.bookingservice.entity;
 
+import com.kamiloses.bookingservice.enums.BookingStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

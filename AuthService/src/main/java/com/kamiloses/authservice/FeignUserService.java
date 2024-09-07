@@ -14,3 +14,4 @@ public interface FeignUserService {
     Optional<UserDto> loadUsernameFromDB(@RequestParam String username);
 
 }
+

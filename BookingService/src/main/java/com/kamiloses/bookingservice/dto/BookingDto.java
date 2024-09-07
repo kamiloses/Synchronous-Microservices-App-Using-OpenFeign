@@ -1,6 +1,6 @@
 package com.kamiloses.bookingservice.dto;
 
-import com.kamiloses.bookingservice.entity.BookingStatus;
+import com.kamiloses.bookingservice.enums.BookingStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

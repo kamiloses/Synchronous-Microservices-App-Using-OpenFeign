@@ -20,7 +20,6 @@ private final UserRepository userRepository;
         userEntity.setUsername(userDto.getUsername());
         userEntity.setPassword(userDto.getPassword());
         userEntity.setRole(ROLE_USER);
-        userEntity.setMoney(0.00);
 
           userRepository.save(userEntity);
     }

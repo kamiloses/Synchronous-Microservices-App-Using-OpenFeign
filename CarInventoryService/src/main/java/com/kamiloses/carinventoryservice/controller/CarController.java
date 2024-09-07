@@ -1,7 +1,6 @@
 package com.kamiloses.carinventoryservice.controller;
 
 import com.kamiloses.carinventoryservice.dto.CarDto;
-import com.kamiloses.carinventoryservice.entity.CarStatus;
 import com.kamiloses.carinventoryservice.service.CarService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +11,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/cars")
 public class CarController {
-//response entity is only for Employees
+
     private final CarService carService;
 
     public CarController(CarService carService) {
@@ -48,13 +47,13 @@ public class CarController {
         return new ResponseEntity<>(carService.getAllCars(), HttpStatus.OK);
     }
 
-    @GetMapping("/available")//todo popraw serwis bo nie działa
+    @GetMapping("/available")
     public ResponseEntity<List<CarDto>> getAllAvailableCars() {
         return new ResponseEntity<>(carService.getAllAvailableCars(), HttpStatus.OK);
     }
 
-    @GetMapping("/brand")//todo sprawdz czy działa
-    public ResponseEntity<List<CarDto>> getCarsByBrand(@RequestParam String brand) {
+    @GetMapping("/{brand}")
+    public ResponseEntity<List<CarDto>> getCarsByBrand(@PathVariable String brand) {
         return new ResponseEntity<>(carService.getCarsByBrand(brand), HttpStatus.OK);
     }
 }

@@ -1,4 +1,4 @@
-package com.kamiloses.bookingservice.controller;
+package com.kamiloses.bookingservice.feign;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,6 +8,6 @@ public interface FeignUserService {
 
 
     @GetMapping("/user/config")
-    Long getMyAccountId();
+    Long getLoggedUserId();
 
 }

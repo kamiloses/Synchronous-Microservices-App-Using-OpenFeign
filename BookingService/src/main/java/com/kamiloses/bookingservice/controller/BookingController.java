@@ -2,9 +2,11 @@ package com.kamiloses.bookingservice.controller;
 
 import com.kamiloses.bookingservice.dto.BookingDto;
 import com.kamiloses.bookingservice.dto.CarDto;
-import com.kamiloses.bookingservice.repository.BookingRepository;
+import com.kamiloses.bookingservice.feign.FeignCarService;
+import com.kamiloses.bookingservice.feign.FeignUserService;
 import com.kamiloses.bookingservice.service.BookingService;
-import com.kamiloses.bookingservice.service.Mapper;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,56 +15,32 @@ import java.util.List;
 @RequestMapping("/booking")
 public class BookingController {
     private final BookingService bookingService;
-
-    private final BookingRepository bookingRepository; //todo usuń repository potem
-
-    private final Mapper mapper;
     private final FeignCarService feignCarService;
     private final FeignUserService feignUserService;
 
-    public BookingController(BookingService bookingService, BookingRepository bookingRepository, Mapper mapper, FeignCarService feignCarService, FeignUserService feignUserService) {
+    public BookingController(BookingService bookingService, FeignCarService feignCarService, FeignUserService feignUserService) {
         this.bookingService = bookingService;
-        this.bookingRepository = bookingRepository;
-        this.mapper = mapper;
         this.feignCarService = feignCarService;
         this.feignUserService = feignUserService;
     }
 
-    @GetMapping("/cars") //todo zmień na responseEntity
-    public List<CarDto> getAvailableCars() {
-        return feignCarService.getAvailableCars();
-
+    @GetMapping("/cars")
+    public ResponseEntity<List<CarDto>> getAvailableCars() {
+        List<CarDto> availableCars = feignCarService.getAvailableCars();
+        return new ResponseEntity<>(availableCars, HttpStatus.OK);
     }
-
 
     @PostMapping("/{id}")
-    public String makeABooking(@RequestBody BookingDto bookingDto, @PathVariable(name = "id") Long carId) {
-        Long myAccountId = feignUserService.getMyAccountId();
+    public ResponseEntity<String> makeABooking(@RequestBody BookingDto bookingDto, @PathVariable(name = "id") Long carId) {
+        Long myAccountId = feignUserService.getLoggedUserId();
         bookingService.makeABooking(bookingDto, myAccountId, carId);
-
-
-        return "success";
+        return new ResponseEntity<>("Booking successful!", HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/{id}")
-    public String cancelABooking(@PathVariable(name = "id") Long bookingId) {
-        Long myAccountId = feignUserService.getMyAccountId();
-        bookingService.cancelABooking(bookingId, myAccountId);
-
-
-        return null;
-    }
 
     @GetMapping
-    public List<BookingDto> getMyBookings() {
-        Long myAccountId = feignUserService.getMyAccountId();
-        return mapper.BookingEntityToDto(bookingRepository.findByUserId(myAccountId));
-        //zwraca to wszystkie moje zamówienia
-
+    public ResponseEntity<List<BookingDto>> getMyBookings() {
+        List<BookingDto> myBookings = bookingService.getMyBookings();
+        return new ResponseEntity<>(myBookings, HttpStatus.OK);
     }
-
-
-
-
-
 }

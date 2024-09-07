@@ -2,10 +2,9 @@ package com.kamiloses.carinventoryservice.service;
 
 import com.kamiloses.carinventoryservice.dto.CarDto;
 import com.kamiloses.carinventoryservice.entity.CarEntity;
-import com.kamiloses.carinventoryservice.entity.CarStatus;
+import com.kamiloses.carinventoryservice.enums.CarStatus;
 import com.kamiloses.carinventoryservice.exception.VehicleNotFoundException;
 import com.kamiloses.carinventoryservice.repository.CarRepository;
-import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -35,14 +34,13 @@ public class CarService {
       carRepository.deleteById(id);
 
     }
-    //put
+
     public void modifyCar(Long id,CarDto carDto){
         CarEntity carEntity = carRepository.findById(id).orElseThrow(() -> new VehicleNotFoundException("The car does not exist in our service"));
         CarEntity car = mapper.mapCarDtoToEntity(carEntity,carDto);
         carRepository.save(car);
 
     }
-    //patch
      public void modifyCarStatus(Long id){
          CarEntity carEntity = carRepository.findById(id).orElseThrow(() -> new VehicleNotFoundException("The car does not exist in our service"));
          CarStatus currentStatus = carEntity.getCarStatus();
@@ -68,13 +66,11 @@ public class CarService {
      }
 
      public List<CarDto> getAllAvailableCars(){
-
-        return mapper.mapCarEntityToDto(carRepository.findAll()).stream()
-                .filter(carDto -> carDto.getCarStatus().equals(CarStatus.AVAILABLE)).toList();
+         return mapper.mapCarEntityToDto(carRepository.findAllByCarStatus(CarStatus.AVAILABLE));
 
     }
     public List<CarDto> getCarsByBrand(String brand){
-        return mapper.mapCarEntityToDto(carRepository.findAll()).stream().filter(carDto ->carDto.getBrand().equals(brand)).toList();
+        return mapper.mapCarEntityToDto(carRepository.findAllByBrand(brand));
     }
 
 

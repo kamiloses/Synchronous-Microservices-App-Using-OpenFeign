@@ -19,7 +19,6 @@ public class UserEntity {
     private String username;
     private String password;
     private Role role;
-    private Double money;
 
 
 

@@ -1,4 +1,4 @@
-package com.kamiloses.bookingservice.service;
+package com.kamiloses.bookingservice.exception;
 
 public class BookingNotFoundException extends RuntimeException {
 

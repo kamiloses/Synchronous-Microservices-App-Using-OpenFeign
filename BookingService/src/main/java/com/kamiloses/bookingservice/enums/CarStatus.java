@@ -1,4 +1,4 @@
-package com.kamiloses.bookingservice.entity;
+package com.kamiloses.bookingservice.enums;
 
 public enum CarStatus {
 

@@ -1,4 +1,4 @@
-package com.kamiloses.carinventoryservice.entity;
+package com.kamiloses.carinventoryservice.enums;
 
 public enum CarStatus {
 

@@ -1,7 +1,7 @@
 package com.kamiloses.carinventoryservice.dto;
 
-import com.kamiloses.carinventoryservice.entity.CarStatus;
-import com.kamiloses.carinventoryservice.entity.FuelType;
+import com.kamiloses.carinventoryservice.enums.CarStatus;
+import com.kamiloses.carinventoryservice.enums.FuelType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
