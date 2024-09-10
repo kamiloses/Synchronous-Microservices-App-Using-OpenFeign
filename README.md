@@ -1,8 +1,7 @@
 Simple API Microservices Synchronous App
+Right now  I am focusing on this application which will be regularly updated on new libraries.
 
-Initially, I had many more ideas for this project, but I eventually decided to stop working on it to focus on building an asynchronous microservices app, which should be much more interesting.
-
-Libraries/Frameworks Used:
+Libraries/Frameworks currently used:
 
 - API Gateway
 - OpenFeign
@@ -11,3 +10,4 @@ Libraries/Frameworks Used:
 - Spring Web
 - Hibernate
 - MySQL
+- JUnit
