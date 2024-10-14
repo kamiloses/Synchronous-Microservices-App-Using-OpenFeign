@@ -1,4 +1,5 @@
-Simple API Microservices Synchronous App
+Simple API Microservices Synchronous App.
+
 The main purpose of the application was to use OpenFeign for fetching data from Eureka, instead of using RestTemplate.
 
 Libraries/Frameworks currently used:
